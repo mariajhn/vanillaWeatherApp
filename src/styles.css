@@ -13,6 +13,7 @@ ul{
     padding: 0;
 }
 li{
+    text-transform: capitalize;
     list-style: none;
     margin: 0;
     padding: 0;

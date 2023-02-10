@@ -11,6 +11,7 @@
       integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
       crossorigin="anonymous"
     />
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <link rel="stylesheet" href="src/styles.css">
 
 </head>
@@ -19,14 +20,17 @@
     <div class="weather-app-wrapper">
     <div class="weather-app">
         <div class="overview">
-            <h1>
+            <h1 id = "city">
             New York  
             </h1>
             <ul>
-                <li>
+                <li >
+                  Last Updated at 
+                  <span id = "date">
                     Friday 5:00
+                  </span>
                 </li>
-                <li>
+                <li id = "description">
                     Clear
                 </li>
             </ul>
@@ -51,10 +55,14 @@
                 precipitation 0%
             </li>
             <li>
-                Humidity : 73%
+                Humidity : 
+                <span id="humidity">73</span>
+                %
             </li>
             <li>
-                Wind : 2 Km/h
+                Wind : 
+                <span id="wind">3</span>
+                 Km/h
             </li>
         </ul>
         </div>
