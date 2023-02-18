@@ -1,3 +1,37 @@
+function displayForecast(response)
+{
+    let forecastElement = document.querySelector("#weather-forecast");
+    
+    
+    let days = ["Thu" , "Fri", "Sat", "Sun"];
+    let forcastTemp =` <div class="row"> `;
+    days.forEach(function (day)
+    {
+        forcastTemp = forcastTemp +
+        ` <div class="col-2">
+                    <div class="forecastDate">
+                        ${day}
+                    </div>
+                    <img src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png" alt="" width = "36">
+                    <div class="forecastTemp">
+                        <span class="maxTemp">
+                            18
+                        </span>
+                        <span class="minTemp">
+                            12
+                        </span>                   
+                    </div>     
+            </div>`;
+       
+    }
+    );
+    
+    forcastTemp = forcastTemp +  " </div>"; 
+    forecastElement.innerHTML =forcastTemp;
+}
+
+
+
 function formatDate(timestamp){
    
     let date = new Date(timestamp);
@@ -11,6 +45,13 @@ function formatDate(timestamp){
     let day =days[ date.getDay()];
 
     return (`${day}  ${hours} : ${minutes}`);
+}
+function getForecast(coordinates)
+{
+    let apikey = "1bedecatd538ffc4043oc4b3a2355b3a";
+    let apiUrl =`https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.lon}&lat=${coordinates.lat}&key=${apikey}&units=metric`;
+    console.log(apiUrl);
+    axios.get(apiUrl).then(displayForecast);
 }
 function displayWeather(response) {
     let tempElement = document.querySelector("#temperature");
@@ -47,7 +88,9 @@ function displayWeather(response) {
     console.log(
       `It is ${temperature} degrees, ${description}, in ${response.data.name}`
     );
-   
+   getForecast(response.data.coord);
+
+
   }
   function search(city)
   {
@@ -95,3 +138,5 @@ function displayWeather(response) {
 
    let celsius = document.querySelector("#celsius-link");
    celsius.addEventListener("click", displayCelsiusTemp);
+
+  
