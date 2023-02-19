@@ -1,28 +1,45 @@
+
+function formatDay(timestamp)
+{
+    let date = new Date(timestamp*1000);
+    let day = date.getDay();
+    let days = ["Sun", "Mon","Tue","Wed","Thu" , "Fri", "Sat" ];
+    return days[day];
+
+}
 function displayForecast(response)
 {
+    console.log(response.data);
+    let forecast = response.data.daily;
+  
+    console.log("Helllo Display Forecast");
+    console.log("ffsdfs"+forecast);
+
     let forecastElement = document.querySelector("#weather-forecast");
     
     
-    let days = ["Thu" , "Fri", "Sat", "Sun"];
     let forcastTemp =` <div class="row"> `;
-    days.forEach(function (day)
+    forecast.forEach(function (forecastDay, index)
     {
+        if (index < 6)
+        {
         forcastTemp = forcastTemp +
         ` <div class="col-2">
                     <div class="forecastDate">
-                        ${day}
+                        ${formatDay(forecastDay.dt)}
                     </div>
-                    <img src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png" alt="" width = "36">
+                    <img src="http://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png" alt="" width = "36">
+                    
                     <div class="forecastTemp">
                         <span class="maxTemp">
-                            18
+                            ${Math.round(  forecastDay.temp.max)  }
                         </span>
                         <span class="minTemp">
-                            12
+                        ${Math.round(  forecastDay.temp.min)}
                         </span>                   
                     </div>     
             </div>`;
-       
+        }
     }
     );
     
@@ -48,10 +65,14 @@ function formatDate(timestamp){
 }
 function getForecast(coordinates)
 {
-    let apikey = "1bedecatd538ffc4043oc4b3a2355b3a";
-    let apiUrl =`https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.lon}&lat=${coordinates.lat}&key=${apikey}&units=metric`;
+    console.log(coordinates);
+    let apikey = "5354b60afda2b7800186c06153932396";
+    let apiUrl =  `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apikey}&units=metric`;
+    //let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lon=${coordinates.lon}&lat=${coordinates.lat}&key=${apikey}&units=metric`;
     console.log(apiUrl);
     axios.get(apiUrl).then(displayForecast);
+
+
 }
 function displayWeather(response) {
     let tempElement = document.querySelector("#temperature");
@@ -92,6 +113,7 @@ function displayWeather(response) {
 
 
   }
+
   function search(city)
   {
     let apikey = "3fdc8cfbf2d6fa0116c9ae92d3df4f79";
