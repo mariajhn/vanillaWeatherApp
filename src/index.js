@@ -9,12 +9,10 @@ function formatDay(timestamp)
 }
 function displayForecast(response)
 {
-    console.log(response.data);
+    
     let forecast = response.data.daily;
   
-    console.log("Helllo Display Forecast");
-    console.log("ffsdfs"+forecast);
-
+    
     let forecastElement = document.querySelector("#weather-forecast");
     
     
@@ -69,7 +67,6 @@ function getForecast(coordinates)
     let apikey = "5354b60afda2b7800186c06153932396";
     let apiUrl =  `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apikey}&units=metric`;
     //let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lon=${coordinates.lon}&lat=${coordinates.lat}&key=${apikey}&units=metric`;
-    console.log(apiUrl);
     axios.get(apiUrl).then(displayForecast);
 
 
@@ -106,9 +103,7 @@ function displayWeather(response) {
     let dateElement = document.querySelector("#date");
     dateElement.innerHTML = formatDate(response.data.dt*1000);
 
-    console.log(
-      `It is ${temperature} degrees, ${description}, in ${response.data.name}`
-    );
+  
    getForecast(response.data.coord);
 
 
